@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh the BirdNET-Go TRMNL dashboard
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=10min
+RandomizedDelaySec=15s
+Persistent=yes
+Unit=birdnet-trmnl.service
+
+[Install]
+WantedBy=timers.target

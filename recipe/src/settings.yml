@@ -1,0 +1,7 @@
+---
+name: BirdNET-Go Daily
+description: Today's backyard bird activity
+strategy: webhook
+refresh_interval: 15
+no_screen_padding: 'yes'
+dark_mode: 'no'

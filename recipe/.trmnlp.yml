@@ -1,0 +1,39 @@
+---
+watch:
+  - .trmnlp.yml
+  - src
+
+custom_fields: {}
+framework_version: latest
+
+variables:
+  schema_version: 1
+  status: online
+  station: Balcony Birds
+  date: '2026-09-13'
+  date_label: Sunday, September 13
+  checked_at: 7:46 AM EDT
+  detections: 54
+  species: 6
+  featured:
+    name: Fish Crow
+    scientific: Corvus ossifragus
+    confidence: 98
+    heard: 7:46 AM
+    image_url: https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Fish_crow_in_Red_Hook_%2842712%29.jpg/1280px-Fish_crow_in_Red_Hook_%2842712%29.jpg
+    image_credit: 'Photo: Rhododendrites · CC BY-SA 4.0'
+    image_source: https://commons.wikimedia.org/wiki/File:Fish_crow_in_Red_Hook_%2842712%29.jpg
+  top_species:
+    - { name: Fish Crow, scientific: Corvus ossifragus, count: 38, last: 7:46 AM }
+    - { name: Blue Jay, scientific: Cyanocitta cristata, count: 7, last: 7:42 AM }
+    - { name: Killdeer, scientific: Charadrius vociferus, count: 4, last: 6:31 AM }
+    - { name: Mississippi Kite, scientific: Ictinia mississippiensis, count: 3, last: 6:30 AM }
+    - { name: Barn Owl, scientific: Tyto alba, count: 2, last: 6:09 AM }
+  recent:
+    - { name: Fish Crow, confidence: 98, heard: 7:46 AM }
+    - { name: Blue Jay, confidence: 93, heard: 7:42 AM }
+    - { name: Fish Crow, confidence: 96, heard: 7:40 AM }
+    - { name: Killdeer, confidence: 97, heard: 6:31 AM }
+  activity: [0, 0, 0, 0, 0, 0, 10, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  activity_levels: [0, 0, 0, 0, 0, 0, 2, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  activity_max: 44

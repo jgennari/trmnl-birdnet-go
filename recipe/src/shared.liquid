@@ -1,0 +1,197 @@
+{% template bird_icon %}
+  <svg class="bng-bird-icon" viewBox="0 0 96 96" role="img" aria-label="Bird silhouette">
+    <path d="M72 17c-8 0-15 5-18 12-11-7-27-4-34 8-6 11-2 25 9 31-5 5-11 8-18 9 12 5 25 3 34-5 7 1 15 0 22-4 12-8 20-20 20-34 0-4-1-8-3-11 8 1 14-3 14-8 0-5-5-9-12-9z" fill="currentColor"/>
+    <circle cx="74" cy="29" r="3" fill="white"/>
+  </svg>
+{% endtemplate %}
+
+{% template activity_chart %}
+  <div class="bng-chart" aria-label="Detections by hour">
+    <div class="bng-bars">
+      {% for level in activity_levels %}
+        <span class="bng-bar bng-level-{{ level }}"></span>
+      {% endfor %}
+    </div>
+    <div class="bng-chart-labels"><span>12a</span><span>6a</span><span>12p</span><span>6p</span><span>11p</span></div>
+  </div>
+{% endtemplate %}
+
+<style>
+  .bng, .bng * { box-sizing: border-box; }
+  .bng { width: 100%; height: 100%; overflow: hidden; padding: 0; color: #111; background: #f5f5f1; font-family: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif; }
+  .bng-shell { width: 100%; height: 100%; min-height: 0; display: grid; }
+  .bng-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid #111; }
+  .bng-brand { display: flex; align-items: center; gap: 20px; min-width: 0; }
+  .bng-bird-mark { width: 72px; height: 72px; border: 3px solid #111; border-radius: 50%; display: grid; place-items: center; flex: 0 0 auto; }
+  .bng-bird-icon { width: 54px; height: 54px; display: block; }
+  .bng-title { font-size: 45px !important; line-height: .95; font-weight: 800; letter-spacing: -1.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bng-subtitle { margin-top: 8px; color: #555; font-size: 19px !important; line-height: 1; font-weight: 600; }
+  .bng-date { text-align: right; flex: 0 0 auto; }
+  .bng-date-main { font-size: 22px !important; line-height: 1; font-weight: 750; }
+  .bng-date-sub { margin-top: 8px; color: #555; font-size: 15px !important; font-weight: 600; }
+  .bng-panel { border: 2px solid #333; border-radius: 14px; background: #fff; min-width: 0; min-height: 0; overflow: hidden; }
+  .bng-panel-title { font-size: 16px !important; line-height: 1; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; }
+  .bng-portrait { position: relative; background: #ddd; }
+  .bng-portrait img { width: 100%; height: 100%; display: block; object-fit: cover; filter: grayscale(1) contrast(1.08); }
+  .bng-portrait-empty { width: 100%; height: 100%; display: grid; place-items: center; color: #555; background: repeating-linear-gradient(135deg,#eee,#eee 16px,#ddd 16px,#ddd 18px); }
+  .bng-portrait-empty .bng-bird-icon { width: 42%; height: 42%; }
+  .bng-credit { position: absolute; left: 0; right: 0; bottom: 0; padding: 8px 12px; background: rgba(255,255,255,.88); border-top: 1px solid #777; font-size: 11px !important; line-height: 1.15; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bng-feature-name { font-size: 46px !important; line-height: .95; font-weight: 820; letter-spacing: -1.2px; }
+  .bng-feature-scientific { margin-top: 8px; color: #555; font-size: 19px !important; line-height: 1; font-style: italic; font-weight: 550; }
+  .bng-feature-meta { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+  .bng-pill { display: inline-flex; align-items: center; height: 30px; padding: 0 11px; border: 2px solid #333; border-radius: 999px; background: #eee; font-size: 14px !important; line-height: 1; font-weight: 800; }
+  .bng-metrics { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .bng-metric { padding: 16px; border: 2px solid #333; border-radius: 12px; background: #fff; }
+  .bng-metric-label { font-size: 13px !important; line-height: 1; font-weight: 800; letter-spacing: .6px; color: #555; text-transform: uppercase; }
+  .bng-metric-value { margin-top: 8px; font-size: 47px !important; line-height: .85; font-weight: 850; font-variant-numeric: tabular-nums; }
+  .bng-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  .bng-table th { height: 28px; padding: 0 8px; border-bottom: 2px solid #777; color: #555; font-size: 12px !important; font-weight: 800; text-align: left; text-transform: uppercase; }
+  .bng-table td { height: 39px; padding: 0 8px; border-bottom: 1px solid #bbb; font-size: 15px !important; line-height: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bng-table tr:last-child td { border-bottom: 0; }
+  .bng-rank { width: 38px; text-align: center; font-weight: 800; }
+  .bng-count { width: 64px; text-align: right; font-weight: 850; }
+  .bng-time { width: 90px; text-align: right; color: #555; }
+  .bng-species-name { font-weight: 720; }
+  .bng-bars { height: 100%; display: grid; grid-template-columns: repeat(24,1fr); align-items: end; gap: 4px; border-bottom: 2px solid #555; }
+  .bng-bar { display: block; min-height: 2px; background: #222; border-radius: 2px 2px 0 0; }
+  .bng-level-0 { height: 2px; background: #bbb; }
+  .bng-level-1 { height: 10%; } .bng-level-2 { height: 20%; } .bng-level-3 { height: 30%; }
+  .bng-level-4 { height: 40%; } .bng-level-5 { height: 50%; } .bng-level-6 { height: 60%; }
+  .bng-level-7 { height: 70%; } .bng-level-8 { height: 80%; } .bng-level-9 { height: 90%; }
+  .bng-level-10 { height: 100%; }
+  .bng-chart-labels { display: flex; justify-content: space-between; padding-top: 6px; color: #555; font-size: 11px !important; font-weight: 700; }
+  .bng-empty { height: 100%; display: grid; place-items: center; padding: 20px; text-align: center; color: #555; font-size: 17px !important; font-weight: 650; }
+  .bng-footer { display: flex; align-items: center; justify-content: space-between; border-top: 2px solid #555; color: #444; font-size: 14px !important; line-height: 1; font-weight: 650; }
+
+  .bng-full .bng-shell { grid-template-rows: 90px minmax(0,1fr) 165px 38px; gap: 12px; padding: 18px 34px 0; }
+  .bng-full .bng-bird-mark { width: 58px; height: 58px; }
+  .bng-full .bng-bird-icon { width: 44px; height: 44px; }
+  .bng-full .bng-title { font-size: 39px !important; }
+  .bng-full .bng-subtitle { margin-top: 6px; font-size: 16px !important; }
+  .bng-full .bng-date-main { font-size: 19px !important; }
+  .bng-full .bng-date-sub { margin-top: 6px; font-size: 13px !important; }
+  .bng-full .bng-main { min-height: 0; display: grid; grid-template-columns: minmax(0,1.08fr) minmax(0,1.42fr); gap: 18px; }
+  .bng-full .bng-portrait { height: 100%; }
+  .bng-full .bng-details { min-height: 0; display: grid; grid-template-rows: 98px 90px minmax(0,1fr); gap: 12px; }
+  .bng-full .bng-feature { padding: 8px 16px 0; }
+  .bng-full .bng-feature-name { font-size: 39px !important; }
+  .bng-full .bng-feature-scientific { margin-top: 5px; font-size: 16px !important; }
+  .bng-full .bng-feature-meta { margin-top: 10px; }
+  .bng-full .bng-pill { height: 25px; padding: 0 9px; font-size: 12px !important; }
+  .bng-full .bng-metric { padding: 12px 15px; }
+  .bng-full .bng-metric-value { margin-top: 6px; font-size: 39px !important; }
+  .bng-full .bng-top { padding: 9px 12px 6px; }
+  .bng-full .bng-top .bng-panel-title { height: 24px; }
+  .bng-full .bng-table th { height: 24px; font-size: 10px !important; }
+  .bng-full .bng-table td { height: 30px; font-size: 13px !important; }
+  .bng-full .bng-bottom { min-height: 0; display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); gap: 18px; }
+  .bng-full .bng-activity, .bng-full .bng-recent { padding: 10px 14px 7px; }
+  .bng-full .bng-chart { height: 112px; margin-top: 8px; }
+  .bng-full .bng-recent-list { margin-top: 6px; }
+  .bng-full .bng-recent-row { height: 27px; display: grid; grid-template-columns: minmax(0,1fr) 52px 70px; align-items: center; gap: 7px; border-bottom: 1px solid #bbb; font-size: 12px !important; }
+  .bng-full .bng-recent-row:last-child { border: 0; }
+  .bng-full .bng-footer { margin: 0 -34px; padding: 0 34px; }
+
+  .bng-half-h .bng-shell { grid-template-rows: 62px minmax(0,1fr) 34px; gap: 10px; padding: 12px 20px 0; }
+  .bng-half-h .bng-header { border-bottom-width: 2px; }
+  .bng-half-h .bng-bird-mark { width: 42px; height: 42px; border-width: 2px; }
+  .bng-half-h .bng-bird-icon { width: 32px; height: 32px; }
+  .bng-half-h .bng-title { font-size: 27px !important; }
+  .bng-half-h .bng-subtitle { margin-top: 4px; font-size: 12px !important; }
+  .bng-half-h .bng-date-main { font-size: 14px !important; }
+  .bng-half-h .bng-date-sub { margin-top: 4px; font-size: 11px !important; }
+  .bng-half-h .bng-main { min-height: 0; display: grid; grid-template-columns: 30% 25% 45%; gap: 12px; }
+  .bng-half-h .bng-portrait { height: 100%; }
+  .bng-half-h .bng-feature { padding: 12px; }
+  .bng-half-h .bng-feature-name { font-size: 28px !important; }
+  .bng-half-h .bng-feature-scientific { font-size: 13px !important; }
+  .bng-half-h .bng-metrics { margin-top: 16px; gap: 8px; }
+  .bng-half-h .bng-metric { padding: 10px; }
+  .bng-half-h .bng-metric-value { font-size: 32px !important; }
+  .bng-half-h .bng-top { padding: 9px; }
+  .bng-half-h .bng-table td { height: 31px; font-size: 12px !important; }
+  .bng-half-h .bng-table th { height: 23px; font-size: 10px !important; }
+  .bng-half-h .bng-footer { margin: 0 -20px; padding: 0 20px; font-size: 11px !important; }
+
+  .bng-half-v .bng-shell { grid-template-rows: 78px 34% auto minmax(0,1fr) 38px; gap: 12px; padding: 16px 20px 0; }
+  .bng-half-v .bng-bird-mark { width: 48px; height: 48px; border-width: 2px; }
+  .bng-half-v .bng-bird-icon { width: 36px; height: 36px; }
+  .bng-half-v .bng-title { font-size: 29px !important; }
+  .bng-half-v .bng-subtitle { font-size: 12px !important; }
+  .bng-half-v .bng-date { display: none; }
+  .bng-half-v .bng-portrait { height: 100%; }
+  .bng-half-v .bng-feature-name { font-size: 30px !important; }
+  .bng-half-v .bng-feature-scientific { font-size: 13px !important; margin-top: 5px; }
+  .bng-half-v .bng-feature-meta { margin-top: 8px; }
+  .bng-half-v .bng-metrics { gap: 8px; }
+  .bng-half-v .bng-metric { padding: 10px 12px; }
+  .bng-half-v .bng-metric-value { font-size: 33px !important; }
+  .bng-half-v .bng-top { padding: 10px; }
+  .bng-half-v .bng-table td { height: 34px; font-size: 12px !important; }
+  .bng-half-v .bng-table th { height: 24px; font-size: 10px !important; }
+  .bng-half-v .bng-time { display: none; }
+  .bng-half-v .bng-footer { margin: 0 -20px; padding: 0 20px; font-size: 10px !important; }
+
+  .bng-quad .bng-shell { grid-template-rows: 54px auto minmax(0,1fr) 30px; gap: 8px; padding: 10px 12px 0; }
+  .bng-quad .bng-header { border-bottom-width: 2px; }
+  .bng-quad .bng-bird-mark { width: 34px; height: 34px; border-width: 2px; }
+  .bng-quad .bng-bird-icon { width: 25px; height: 25px; }
+  .bng-quad .bng-title { font-size: 21px !important; }
+  .bng-quad .bng-subtitle, .bng-quad .bng-date { display: none; }
+  .bng-quad .bng-feature-name { font-size: 25px !important; }
+  .bng-quad .bng-feature-scientific { font-size: 11px !important; margin-top: 4px; }
+  .bng-quad .bng-feature-meta { margin-top: 7px; gap: 6px; }
+  .bng-quad .bng-pill { height: 23px; padding: 0 7px; border-width: 1.5px; font-size: 10px !important; }
+  .bng-quad .bng-metrics { gap: 6px; }
+  .bng-quad .bng-metric { padding: 7px 9px; border-width: 1.5px; }
+  .bng-quad .bng-metric-label { font-size: 9px !important; }
+  .bng-quad .bng-metric-value { margin-top: 5px; font-size: 27px !important; }
+  .bng-quad .bng-top { padding: 7px; }
+  .bng-quad .bng-panel-title { font-size: 11px !important; }
+  .bng-quad .bng-table th { display: none; }
+  .bng-quad .bng-table td { height: 28px; padding: 0 4px; font-size: 10px !important; }
+  .bng-quad .bng-rank { width: 24px; }
+  .bng-quad .bng-count { width: 38px; }
+  .bng-quad .bng-time { display: none; }
+  .bng-quad .bng-footer { margin: 0 -12px; padding: 0 12px; font-size: 8px !important; }
+
+  @media (max-width: 900px) and (max-height: 600px) {
+    .bng-full .bng-shell { grid-template-rows: 58px minmax(0,1fr) 100px 28px; gap: 8px; padding: 8px 18px 0; }
+    .bng-full .bng-header { border-bottom-width: 2px; }
+    .bng-full .bng-brand { gap: 10px; }
+    .bng-full .bng-bird-mark { width: 38px; height: 38px; border-width: 2px; }
+    .bng-full .bng-bird-icon { width: 29px; height: 29px; }
+    .bng-full .bng-title { font-size: 26px !important; }
+    .bng-full .bng-subtitle { margin-top: 3px; font-size: 11px !important; }
+    .bng-full .bng-date-main { font-size: 12px !important; }
+    .bng-full .bng-date-sub { margin-top: 3px; font-size: 9px !important; }
+    .bng-full .bng-main { grid-template-columns: minmax(0,.85fr) minmax(0,1.35fr); gap: 10px; }
+    .bng-full .bng-details { grid-template-rows: 52px 46px minmax(0,1fr); gap: 6px; }
+    .bng-full .bng-feature { padding: 2px 8px 0; }
+    .bng-full .bng-feature-name { font-size: 25px !important; }
+    .bng-full .bng-feature-scientific { margin-top: 2px; font-size: 11px !important; }
+    .bng-full .bng-feature-meta { margin-top: 5px; gap: 6px; }
+    .bng-full .bng-pill { height: 18px; padding: 0 6px; border-width: 1px; font-size: 8px !important; }
+    .bng-full .bng-metrics { gap: 6px; }
+    .bng-full .bng-metric { padding: 6px 8px; border-width: 1.5px; }
+    .bng-full .bng-metric-label { font-size: 8px !important; }
+    .bng-full .bng-metric-value { margin-top: 3px; font-size: 24px !important; }
+    .bng-full .bng-top { padding: 4px 7px; border-width: 1.5px; }
+    .bng-full .bng-top .bng-panel-title { height: 15px; font-size: 10px !important; }
+    .bng-full .bng-table thead { display: none; }
+    .bng-full .bng-table td { height: 18px; padding: 0 3px; font-size: 9px !important; }
+    .bng-full .bng-rank { width: 22px; }
+    .bng-full .bng-count { width: 35px; }
+    .bng-full .bng-time { width: 54px; }
+    .bng-full .bng-bottom { gap: 10px; }
+    .bng-full .bng-activity, .bng-full .bng-recent { padding: 6px 8px 4px; border-width: 1.5px; }
+    .bng-full .bng-panel-title { font-size: 10px !important; }
+    .bng-full .bng-chart { height: 69px; margin-top: 4px; }
+    .bng-full .bng-chart-labels { padding-top: 2px; font-size: 7px !important; }
+    .bng-full .bng-recent-list { margin-top: 3px; }
+    .bng-full .bng-recent-row { height: 18px; grid-template-columns: minmax(0,1fr) 35px 48px; gap: 4px; font-size: 8px !important; }
+    .bng-full .bng-recent-row:nth-child(n+5) { display: none; }
+    .bng-full .bng-footer { margin: 0 -18px; padding: 0 18px; font-size: 8px !important; }
+    .bng-credit { padding: 4px 7px; font-size: 7px !important; }
+  }
+</style>

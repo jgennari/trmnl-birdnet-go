@@ -1,0 +1,11 @@
+[project]
+name = "birdnet-trmnl"
+version = "0.1.0"
+description = "Push BirdNET-Go daily detections to a TRMNL e-ink display"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Joey Gennari" }]
+keywords = ["birdnet-go", "trmnl", "birds", "e-ink"]
+
+[project.urls]
+Homepage = "https://github.com/jgennari/trmnl-birdnet-go"

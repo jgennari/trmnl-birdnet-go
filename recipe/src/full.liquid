@@ -1,0 +1,41 @@
+<div class="layout bng bng-full">
+  <div class="bng-shell">
+    <header class="bng-header">
+      <div class="bng-brand">
+        <div class="bng-bird-mark">{% render "bird_icon" %}</div>
+        <div><div class="bng-title">{{ station }}</div><div class="bng-subtitle">BirdNET-Go daily soundscape</div></div>
+      </div>
+      <div class="bng-date"><div class="bng-date-main">{{ date_label }}</div><div class="bng-date-sub">Data checked {{ checked_at }}</div></div>
+    </header>
+
+    <main class="bng-main">
+      <section class="bng-panel bng-portrait">
+        {% if featured.image_url != blank %}<img src="{{ featured.image_url }}" alt="{{ featured.name }}">{% else %}<div class="bng-portrait-empty">{% render "bird_icon" %}</div>{% endif %}
+        {% if featured.image_credit != blank %}<div class="bng-credit">{{ featured.image_credit }}</div>{% endif %}
+      </section>
+
+      <section class="bng-details">
+        <div class="bng-feature">
+          <div class="bng-feature-name">{{ featured.name }}</div>
+          <div class="bng-feature-scientific">{{ featured.scientific }}</div>
+          {% if featured.heard != blank %}<div class="bng-feature-meta"><span class="bng-pill">Latest · {{ featured.heard }}</span><span class="bng-pill">{{ featured.confidence }}% confidence</span></div>{% endif %}
+        </div>
+        <div class="bng-metrics">
+          <div class="bng-metric"><div class="bng-metric-label">Detections today</div><div class="bng-metric-value">{{ detections }}</div></div>
+          <div class="bng-metric"><div class="bng-metric-label">Species heard</div><div class="bng-metric-value">{{ species }}</div></div>
+        </div>
+        <div class="bng-panel bng-top">
+          <div class="bng-panel-title">Top species today</div>
+          {% if top_species.size > 0 %}<table class="bng-table"><thead><tr><th class="bng-rank">#</th><th>Species</th><th class="bng-time">Last</th><th class="bng-count">Calls</th></tr></thead><tbody>{% for bird in top_species %}<tr><td class="bng-rank">{{ forloop.index }}</td><td class="bng-species-name">{{ bird.name }}</td><td class="bng-time">{{ bird.last }}</td><td class="bng-count">{{ bird.count }}</td></tr>{% endfor %}</tbody></table>{% else %}<div class="bng-empty">Listening for the first bird of the day.</div>{% endif %}
+        </div>
+      </section>
+    </main>
+
+    <section class="bng-bottom">
+      <div class="bng-panel bng-activity"><div class="bng-panel-title">Activity by hour</div>{% render "activity_chart", activity: activity, activity_levels: activity_levels %}</div>
+      <div class="bng-panel bng-recent"><div class="bng-panel-title">Recent detections</div><div class="bng-recent-list">{% for bird in recent limit: 4 %}<div class="bng-recent-row"><strong>{{ bird.name }}</strong><span>{{ bird.confidence }}%</span><span>{{ bird.heard }}</span></div>{% endfor %}{% if recent.size == 0 %}<div class="bng-empty">No calls recorded today.</div>{% endif %}</div></div>
+    </section>
+
+    <footer class="bng-footer"><span>Counts are acoustic detections, not individual birds.</span><span>{{ status | capitalize }} · {{ checked_at }}</span></footer>
+  </div>
+</div>
