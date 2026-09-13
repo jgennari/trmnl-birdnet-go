@@ -1,7 +1,8 @@
 {% template bird_icon %}
   <svg class="bng-bird-icon" viewBox="0 0 96 96" role="img" aria-label="Bird silhouette">
-    <path d="M72 17c-8 0-15 5-18 12-11-7-27-4-34 8-6 11-2 25 9 31-5 5-11 8-18 9 12 5 25 3 34-5 7 1 15 0 22-4 12-8 20-20 20-34 0-4-1-8-3-11 8 1 14-3 14-8 0-5-5-9-12-9z" fill="currentColor"/>
-    <circle cx="74" cy="29" r="3" fill="white"/>
+    <path d="M15 72 7 84l26-10c7 5 17 7 27 4 17-5 28-19 27-35l8-5-11-5c-4-10-14-17-25-17-12 0-22 8-27 20-5 12-10 22-24 29 8 1 15 0 22-3-4 5-9 8-15 10z" fill="currentColor"/>
+    <path d="M34 52c9-5 20-4 28 3-5 10-14 16-27 16" fill="none" stroke="#f5f5f1" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="67" cy="31" r="3" fill="#f5f5f1"/>
   </svg>
 {% endtemplate %}
 
@@ -52,14 +53,15 @@
   .bng-count { width: 64px; text-align: right; font-weight: 850; }
   .bng-time { width: 90px; text-align: right; color: #555; }
   .bng-species-name { font-weight: 720; }
-  .bng-bars { height: 100%; display: grid; grid-template-columns: repeat(24,1fr); align-items: end; gap: 4px; border-bottom: 2px solid #555; }
+  .bng-chart { display: grid; grid-template-rows: minmax(0,1fr) 18px; min-height: 0; }
+  .bng-bars { min-height: 0; display: grid; grid-template-columns: repeat(24,1fr); align-items: end; gap: 4px; border-bottom: 2px solid #555; }
   .bng-bar { display: block; min-height: 2px; background: #222; border-radius: 2px 2px 0 0; }
   .bng-level-0 { height: 2px; background: #bbb; }
   .bng-level-1 { height: 10%; } .bng-level-2 { height: 20%; } .bng-level-3 { height: 30%; }
   .bng-level-4 { height: 40%; } .bng-level-5 { height: 50%; } .bng-level-6 { height: 60%; }
   .bng-level-7 { height: 70%; } .bng-level-8 { height: 80%; } .bng-level-9 { height: 90%; }
   .bng-level-10 { height: 100%; }
-  .bng-chart-labels { display: flex; justify-content: space-between; padding-top: 6px; color: #555; font-size: 11px !important; font-weight: 700; }
+  .bng-chart-labels { display: flex; align-items: end; justify-content: space-between; padding-top: 4px; color: #555; font-size: 11px !important; line-height: 1; font-weight: 700; }
   .bng-empty { height: 100%; display: grid; place-items: center; padding: 20px; text-align: center; color: #555; font-size: 17px !important; font-weight: 650; }
   .bng-footer { display: flex; align-items: center; justify-content: space-between; border-top: 2px solid #555; color: #444; font-size: 14px !important; line-height: 1; font-weight: 650; }
 
@@ -186,8 +188,8 @@
     .bng-full .bng-bottom { gap: 10px; }
     .bng-full .bng-activity, .bng-full .bng-recent { padding: 6px 8px 4px; border-width: 1.5px; }
     .bng-full .bng-panel-title { font-size: 10px !important; }
-    .bng-full .bng-chart { height: 69px; margin-top: 4px; }
-    .bng-full .bng-chart-labels { padding-top: 2px; font-size: 7px !important; }
+    .bng-full .bng-chart { height: 69px; margin-top: 4px; grid-template-rows: minmax(0,1fr) 10px; }
+    .bng-full .bng-chart-labels { padding-top: 1px; font-size: 7px !important; }
     .bng-full .bng-recent-list { margin-top: 3px; }
     .bng-full .bng-recent-row { height: 18px; grid-template-columns: minmax(0,1fr) 35px 48px; gap: 4px; font-size: 8px !important; }
     .bng-full .bng-recent-row:nth-child(n+5) { display: none; }
